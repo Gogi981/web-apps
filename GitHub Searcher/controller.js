@@ -1,32 +1,26 @@
 
-const ctrlModule = (function (ui, data) {
+import { getSearchText } from './data.js';
+import { getInputText, displayUsers, resetDisplay, getDivUsers } from './ui.js'
 
+
+export const init = () => {
     const $searchInput = document.querySelector('.search');
-    $searchInput.addEventListener('change', onSearchHandler);
-
+    $searchInput.addEventListener('keyup', onSearchHandler);
 
     function onSuccessHandler(users) {
-
-        ui.displayUsers(users);
-
-        let listOfDivUsers = ui.getDivUsers();
-        for (let i = 0; i < listOfDivUsers.length; i++) {
-            listOfDivUsers[i].addEventListener("click", handleUserDiv);
-        }
+        displayUsers(users);
+        let listOfDivUsers = getDivUsers();
+        users.forEach(() => { addEventListener("click", handleUserDiv) });
     };
 
     function onSearchHandler() {
-
-        let searchText = ui.getInputText();
-        data.getSearchText(searchText, onSuccessHandler);
-        ui.resetDisplay();
+        let searchText = getInputText();
+        getSearchText(searchText, onSuccessHandler);
+        resetDisplay();
     };
 
     function handleUserDiv() {
         let name = this.querySelector('p').textContent;
         $.get(`https://api.github.com/users/${name}/repos`)
     }
-
-
-
-})(uiModule, dataModule)
+}
