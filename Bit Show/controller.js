@@ -1,48 +1,47 @@
-const ctrlModule = (function (ui, data) {
+import * as ui from "./ui.js";
+import * as data from "./data.js";
 
-    $(ui.getInputSearch()).on("keyup", searchShow);
-    $(ui.getHome()).on("click", init);
+$(ui.getInputSearch()).on("keyup", searchShow);
+$(ui.getHome()).on("click", init);
 
 
-    function singleShowInfo() {
-        ui.hideMenuList();
-        ui.resetInputSearch();
+function singleShowInfo() {
+    ui.hideMenuList();
+    ui.resetInputSearch();
 
-        const id = this.getAttribute("data-id");
+    const id = this.getAttribute("data-id");
 
-        data.getSingleShowData(id, ui.displayShowInfo);
-        data.showSeasons(id, ui.displaySeasons);
-        data.showCast(id, ui.displayCast)
-    };
+    data.getSingleShowData(id)
+        .then(show => ui.displayShowInfo(show));
 
-    function searchShow() {
-        ui.showMenuList();
-        let searchQuery = ui.getSearchData();
-        data.searchForShow(searchQuery, displaySearchResult);
-    }
+    data.showSeasons(id)
+        .then(show => ui.displaySeasons(show));
 
-    function displaySearchResult(resultList) {
-        ui.displayMenu(resultList, setEventsOnListItems);
-    }
+    data.showCast(id)
+        .then(show => ui.displayCast(show))
+};
 
-    function setEventsOnListItems(elementArray) {
-        for (let i = 0; i < elementArray.length; i++) {
-            $(elementArray[i]).on("click", singleShowInfo);
-
-        }
-    }
-
-    function init() {
-        data.getAllShows(function (list) {
-            ui.displayShows(list);
-            ui.getDivShows().on("click", singleShowInfo);
-        });
-    }
-
-    return {
-        init
-    }
-
+function searchShow() {
+    ui.showMenuList();
+    let searchQuery = ui.getSearchData();
+    data.searchForShow(searchQuery)
+        .then(searchResult => displaySearchResult(searchResult));
 }
 
-)(uiModule, dataModule)
+function displaySearchResult(resultList) {
+    ui.displayMenu(resultList, setEventsOnListItems);
+}
+
+function setEventsOnListItems(elementArray) {
+    elementArray.map(function (element) { element.on("click", singleShowInfo) })
+}
+
+
+export default function init() {
+    data.getAllShows()
+        .then(list => {
+            ui.displayShows(list);
+            return list
+        })
+        .then(list => ui.getDivShows().on("click", singleShowInfo))
+}
