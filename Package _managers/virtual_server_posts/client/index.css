@@ -1,0 +1,29 @@
+.header {
+ text-align: center;
+background-color:#ec6f75; 
+height: 50px;
+width: 80%;
+margin:0px auto;
+color: white;
+font-weight: bold;
+font-size: 30px;
+line-height: 50px;
+}
+
+ul {
+    padding: 0px;
+    margin: 0px auto;
+    width: 60%;
+    
+    border-radius: 10px;
+}
+
+li {
+    background-color:#556e79;
+    border: 1px solid white;
+    list-style-type: none;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    font-style: italic
+}
