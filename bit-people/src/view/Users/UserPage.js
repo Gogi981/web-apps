@@ -12,8 +12,10 @@ class UsersPage extends React.Component {
     }
     componentDidMount() {
         fetchUsers()
-            .then(users => this.setState({ users: users })
-            )
+            .then(users => this.setState({ users })
+            );
+        // this.setState({ list: this.props.list })
+
     };
 
 
@@ -25,9 +27,13 @@ class UsersPage extends React.Component {
 
             </div >)
 
-        }
+        };
 
-        return <UserGrid data={this.state.users} ></UserGrid > /*<UserList data={this.state.users}></UserList>*/
+
+        if (this.props.isList) {
+            return <UserList data={this.state.users} />
+        }
+        return <UserGrid data={this.state.users} />
 
     }
 }
