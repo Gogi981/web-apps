@@ -8,5 +8,11 @@ class User {
         this.picture = data.picture.medium
         this.id = data.login.uuid
     }
+
+    getDateString = () => {
+        return ("0" + this.dob.getDate()).slice(-2) + "-" + ("0" + (this.dob.getMonth()) + 1).slice(-2) + "-" + (this.dob.getFullYear())
+    };
+
 }
+
 export default User;

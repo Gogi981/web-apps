@@ -9,20 +9,18 @@ class UsersPage extends React.Component {
         this.state = { users: [] }
 
     }
-    /* componentDidMount() {
-         fetchUsers()
-             .then(users => this.setState({ users: users })
-             )
-     };*/
-
-    getData() { return fetchUsers().then(users => this.setState({ users: users })) };
+    componentDidMount() {
+        fetchUsers()
+            .then(users => this.setState({ users: users })
+            )
+    };
 
 
     render() {
         if (this.state.users.length === 0) {
             return (<div>
                 <p>Loading</p>
-                <button onClick={this.getData()} >CLick to load data</button>
+
 
             </div >)
 

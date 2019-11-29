@@ -7,7 +7,7 @@ const UserList = props => {
         <ul className="collection">
             {props.data.map(element => {
                 return (
-                    <UserListItem first={element.first} last={element.last} email={element.email} dob={element.dob} picture={element.picture} gender={element.gender} key={element.id} ></UserListItem>
+                    <UserListItem first={element.first} last={element.last} email={element.email} dob={element.getDateString()} picture={element.picture} gender={element.gender} key={element.id} ></UserListItem>
                 )
             })}
 
