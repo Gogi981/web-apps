@@ -5,8 +5,8 @@ const UserListItem = props => {
         <li className="collection-item avatar">
             <img className="circle" src={props.picture}></img>
             <span className="title">name: {props.first}</span>
-            <p>Email: {props.email} </p>
-            <p> Date of Birth: {props.dob}</p>
+            <p>email: {props.email} </p>
+            <p> date of Birth: {props.dob}</p>
         </li>
     )
 }
