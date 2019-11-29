@@ -1,5 +1,6 @@
 import React from 'react';
 import UserList from './UserList'
+import UserGrid from './UserGrid'
 import { fetchUsers } from '../../services/userServices'
 
 class UsersPage extends React.Component {
@@ -26,7 +27,7 @@ class UsersPage extends React.Component {
 
         }
 
-        return <UserList data={this.state.users}></UserList>
+        return <UserGrid data={this.state.users} ></UserGrid > /*<UserList data={this.state.users}></UserList>*/
 
     }
 }

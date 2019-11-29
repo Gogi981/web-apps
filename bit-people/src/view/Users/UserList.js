@@ -1,6 +1,6 @@
 import React from 'react'
 import UserListItem from './UserListItem'
-import format from 'date-format'
+
 
 const UserList = props => {
     return (

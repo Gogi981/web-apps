@@ -5,7 +5,7 @@ class User {
         this.gender = data.gender
         this.email = data.email
         this.dob = new Date(data.dob.date)
-        this.picture = data.picture.medium
+        this.picture = data.picture.large
         this.id = data.login.uuid
     }
 
