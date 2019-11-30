@@ -10,7 +10,6 @@ const Main = props => {
                 <Route exact path='/' component={() => <UsersPage isList={props.isList} />} />
                 <Route path='/about' component={AboutPage} />
             </Switch>
-
         </div>
     )
 }

@@ -5,13 +5,9 @@ import Footer from '../components/Footer'
 
 
 class App extends React.Component {
-
   constructor(props) {
     super(props)
-
-
     this.state = { isList: !!JSON.parse(localStorage.getItem("isList")) };
-    console.log(this.state);
   }
 
   changeLayout = (event) => {
@@ -24,12 +20,9 @@ class App extends React.Component {
   }
 
   showAboutPage = () => {
-    console.log("rr")
   }
 
-
   render() {
-
     return (
       <div className="App">
         <Header isList={this.state.isList} onChangeLayout={this.changeLayout} showAboutPage={this.showAboutPage} />
