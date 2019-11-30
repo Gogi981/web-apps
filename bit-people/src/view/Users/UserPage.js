@@ -1,23 +1,41 @@
 import React from 'react';
 import UserList from './UserList'
 import UserGrid from './UserGrid'
+import { Loader } from '../../components/Loader'
 import { fetchUsers } from '../../services/userServices'
+import SearchBar from '../../components/SearchBar'
+import Buttons from '../../components/Buttons';
 
 class UsersPage extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = { users: [], isList: !!JSON.parse(localStorage.getItem("isList")), icon: "list" }
+        this.state = {
+            loading: true,
+            users: [],
+            query: '',
+            isList: !!JSON.parse(localStorage.getItem("isList")),
+            icon: "list",
+        }
 
-
+        this.onSearchChange = this.onSearchChange.bind(this);
+        this.loadPageData = this.loadPageData.bind(this);
     }
-    componentDidMount() {
-        fetchUsers()
-            .then(users => this.setState({ users })
-            );
-        // this.setState({ list: this.props.list })
 
+    componentDidMount() {
+        this.loadPageData();
     };
+
+    loadPageData() {
+        this.setState({ loading: true })
+
+        fetchUsers()
+            .then(users => this.setState({ users, loading: false }));
+    }
+
+    onSearchChange = (query) => {
+        this.setState({ query });
+    }
 
     changeLayout = () => {
         this.setState((prevState) => {
@@ -28,40 +46,24 @@ class UsersPage extends React.Component {
         })
     }
 
-
     render() {
-        if (this.state.users.length === 0) {
-            return (<div>
-                <p>Loading</p>
-
-
-            </div >)
-
+        if (this.state.loading) {
+            return <Loader />
         };
 
+        const filteredUsers = this.state.users.filter((element) => (element.first + element.last).toLowerCase().includes(this.state.query));
 
-        if (this.state.isList) {
-
-            return (
-                <div>
-                    <div className="buttonsHeader">
-                        <span><i onClick={() => document.location.reload()} className="material-icons">refresh</i></span>
-                        <span><i onClick={this.changeLayout} className="material-icons">view_module</i></span>
-                    </div>
-                    <UserList data={this.state.users} />
-                </div>)
-        }
         return (
             <div>
-                <div className="buttonsHeader">
-                    <span><i onClick={() => document.location.reload()} className="material-icons">refresh</i></span>
-                    <span><i onClick={this.changeLayout} className="material-icons">list</i></span>
-                </div>
-                <UserGrid data={this.state.users} />
-            </div>)
+                <SearchBar onInput={this.onSearchChange} currentValue={this.state.query} />
+                <Buttons isList={this.state.isList} loadPageData={this.loadPageData} changeLayout={this.changeLayout} />
 
+                {this.state.isList
+                    ? <UserList data={filteredUsers} />
+                    : <UserGrid data={filteredUsers} />}
+            </div>
+        );
     }
 }
-
 
 export default UsersPage;

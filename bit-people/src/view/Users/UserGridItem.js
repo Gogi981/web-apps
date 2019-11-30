@@ -6,7 +6,7 @@ const UserGridItem = props => {
             <div className="col s4 m4">
                 <div className="card reddish">
                     <div className="card-image ">
-                        <img src={props.picture}></img>
+                        <img src={props.picture} alt="User Avatar"></img>
                         <span className="card-title">{props.first}</span>
                     </div>
                     <div className="card-content">
@@ -23,7 +23,7 @@ const UserGridItem = props => {
             <div className="col s4 m4">
                 <div className="card">
                     <div className="card-image">
-                        <img src={props.picture}></img>
+                        <img src={props.picture} alt="User Avatar"></img>
                         <span className="card-title">{props.first}</span>
                     </div>
                     <div className="card-content">
