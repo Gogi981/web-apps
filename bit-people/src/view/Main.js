@@ -7,7 +7,7 @@ const Main = props => {
     return (
         <div className='container'>
             <Switch>
-                <Route exact path='/' component={UsersPage} />
+                <Route exact path='/' component={() => <UsersPage isList={props.isList} />} />
                 <Route path='/about' component={AboutPage} />
             </Switch>
 

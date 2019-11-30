@@ -9,8 +9,8 @@ class App extends React.Component {
   constructor(props) {
     super(props)
 
-    if (!localStorage.isList) { localStorage.setItem("isList", "true") };
-    this.state = { isList: localStorage.isList };
+
+    this.state = { isList: !!JSON.parse(localStorage.getItem("isList")) };
     console.log(this.state);
   }
 
