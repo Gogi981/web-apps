@@ -10,14 +10,7 @@ class App extends React.Component {
     this.state = { isList: !!JSON.parse(localStorage.getItem("isList")) };
   }
 
-  changeLayout = (event) => {
-    this.setState((prevState) => {
-      localStorage.isList = !prevState.isList;
-      return {
-        isList: !prevState.isList
-      }
-    })
-  }
+
 
   showAboutPage = () => {
   }

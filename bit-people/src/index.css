@@ -22,3 +22,21 @@ code {
 i {
   cursor: pointer;
 }
+
+.buttonsHeader {
+  color:  #ee6e73;
+  text-align: right;
+  height: 40px;
+  line-height: 40px;
+  padding: 5px;
+  margin: 0px;
+
+}
+
+.collection-item.reddish {
+  background-color: #ffebee; 
+}
+
+.card.reddish {
+  background-color: #ffebee; 
+}

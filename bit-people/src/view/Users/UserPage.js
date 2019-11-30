@@ -7,7 +7,8 @@ class UsersPage extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = { users: [] }
+        this.state = { users: [], isList: !!JSON.parse(localStorage.getItem("isList")), icon: "list" }
+
 
     }
     componentDidMount() {
@@ -17,6 +18,15 @@ class UsersPage extends React.Component {
         // this.setState({ list: this.props.list })
 
     };
+
+    changeLayout = () => {
+        this.setState((prevState) => {
+            localStorage.isList = !prevState.isList;
+            return {
+                isList: !prevState.isList
+            }
+        })
+    }
 
 
     render() {
@@ -30,10 +40,25 @@ class UsersPage extends React.Component {
         };
 
 
-        if (this.props.isList) {
-            return <UserList data={this.state.users} />
+        if (this.state.isList) {
+
+            return (
+                <div>
+                    <div className="buttonsHeader">
+                        <span><i onClick={() => document.location.reload()} className="material-icons">refresh</i></span>
+                        <span><i onClick={this.changeLayout} className="material-icons">view_module</i></span>
+                    </div>
+                    <UserList data={this.state.users} />
+                </div>)
         }
-        return <UserGrid data={this.state.users} />
+        return (
+            <div>
+                <div className="buttonsHeader">
+                    <span><i onClick={() => document.location.reload()} className="material-icons">refresh</i></span>
+                    <span><i onClick={this.changeLayout} className="material-icons">list</i></span>
+                </div>
+                <UserGrid data={this.state.users} />
+            </div>)
 
     }
 }
