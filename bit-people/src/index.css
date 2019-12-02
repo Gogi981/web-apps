@@ -16,7 +16,10 @@ code {
 
 }
 .page-footer {
-  text-align: center
+  text-align: center;
+  height: 60px;
+  line-height: 60px;
+  padding: 0px;
 }
 
 i {
@@ -37,7 +40,9 @@ i {
 
 .buttons{
 margin: 0px;
+float: right;
 }
+
 .buttons span {
   display: inline-block;
   height: 50px;
@@ -51,11 +56,6 @@ font-size: 50px;
 line-height: 50px;
 } 
 
-.inputField{
-  display: inline-block;
-  width: 50px;
-}
-
 .buttons span i {
   font-size: 40px;
 }
@@ -64,14 +64,16 @@ line-height: 50px;
   padding: 0px;
   margin: 0px;
   display: inline-block;
-  width: 60%;
- 
+  width: 95%;
+  height: 1em;
   border-bottom: 1px solid #ee6e73;
+  font-size: 3em;
+  color: #ee6e73;
 }
 
 .inputField {
   display: inline-block;
-  width: 50%;
+  width: 80%;
   height:50px;
 }
 
@@ -81,9 +83,43 @@ line-height: 50px;
   color: #ee6e73
 }
 
+.userStats {
+    text-align: right;
+    margin: 10px;
+}
+
+.lastRefresh span {
+  float: right;
+  right: 60px;
+  margin-right:40px; 
+}
+
+.userStats span {
+margin: 0px 10px;
+}
+
 .collection-item.reddish {
   background-color: #ffebee; 
 }
+
+.noUser {
+text-align:center;
+font-size: 32px;
+height: 800px;
+padding: 300px 0px;
+color: grey;
+}
+
+.noUser i {
+  font-size: 48px;
+  color: grey;
+}
+
+.noUser i:hover {
+  transform: rotate(360deg);
+  transition: 1s;
+}
+
 
 .card.reddish {
   background-color: #ffebee; 

@@ -1,9 +1,13 @@
 import React from 'react';
+import LastVisit from '../components/LastVisit'
 
-const Footer = () => {
+const Footer = (props) => {
     return (
         <div className="page-footer">
-            © {new Date().getFullYear()} Copyright Text
+            <span>
+                © {new Date().getFullYear()} Copyright Text
+            </span>
+            <LastVisit lastRefresh={props.lastRefresh} />
         </div>
 
     )

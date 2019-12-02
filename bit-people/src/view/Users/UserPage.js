@@ -1,10 +1,14 @@
 import React from 'react';
+
 import UserList from './UserList'
 import UserGrid from './UserGrid'
 import { Loader } from '../../components/Loader'
-import { fetchUsers } from '../../services/userServices'
-import SearchBar from '../../components/SearchBar'
 import Buttons from '../../components/Buttons';
+import NoUsers from '../../components/NoUsers';
+import UserStats from '../../components/UserStats'
+import SearchBar from '../../components/SearchBar'
+import { ClientStorage } from '../../services/ClientStorage';
+import { fetchUsers, loadUsers } from '../../services/userServices'
 
 class UsersPage extends React.Component {
     constructor(props) {
@@ -14,8 +18,7 @@ class UsersPage extends React.Component {
             loading: true,
             users: [],
             query: '',
-            isList: !!JSON.parse(localStorage.getItem("isList")),
-            icon: "list",
+            isList: !!ClientStorage.get('isList') || true,
         }
 
         this.onSearchChange = this.onSearchChange.bind(this);
@@ -23,15 +26,24 @@ class UsersPage extends React.Component {
     }
 
     componentDidMount() {
-        this.loadPageData();
-    };
+        this.setState({ loading: true })
+
+        loadUsers()
+            .then(users => {
+                this.setState({ users, loading: false });
+            })
+    }
 
     loadPageData() {
         this.setState({ loading: true })
 
         fetchUsers()
-            .then(users => this.setState({ users, loading: false }));
+            .then(users => {
+                this.setState({ users, loading: false });
+                this.props.lastRefresh()
+            })
     }
+
 
     onSearchChange = (query) => {
         this.setState({ query });
@@ -40,6 +52,7 @@ class UsersPage extends React.Component {
     changeLayout = () => {
         this.setState((prevState) => {
             localStorage.isList = !prevState.isList;
+
             return {
                 isList: !prevState.isList
             }
@@ -57,6 +70,9 @@ class UsersPage extends React.Component {
             <div>
                 <SearchBar onInput={this.onSearchChange} currentValue={this.state.query} />
                 <Buttons isList={this.state.isList} loadPageData={this.loadPageData} changeLayout={this.changeLayout} />
+                <UserStats users={filteredUsers} />
+
+                {(filteredUsers.length === 0) ? <NoUsers /> : ""}
 
                 {this.state.isList
                     ? <UserList data={filteredUsers} />
