@@ -185,3 +185,11 @@ color: grey;
             transform: scale3D(0, 0, 1);
   } 
 }
+
+.card-content{
+  overflow: hidden;
+}
+
+.col {
+  min-width: 300px;
+}

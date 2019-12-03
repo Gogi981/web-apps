@@ -18,7 +18,7 @@ class UsersPage extends React.Component {
             loading: true,
             users: [],
             query: '',
-            isList: !!ClientStorage.get('isList') || true,
+            isList: (localStorage.getItem('isList')) ? (ClientStorage.get('isList')) : true
         }
 
         this.onSearchChange = this.onSearchChange.bind(this);
@@ -51,11 +51,9 @@ class UsersPage extends React.Component {
 
     changeLayout = () => {
         this.setState((prevState) => {
-            localStorage.isList = !prevState.isList;
+            localStorage.setItem("isList", !prevState.isList);
 
-            return {
-                isList: !prevState.isList
-            }
+            return { isList: !prevState.isList }
         })
     }
 
